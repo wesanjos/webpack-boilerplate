@@ -1,0 +1,21 @@
+.about {
+  background-color: orange;
+
+  .title {
+    color: red;
+    display: flex;
+    flex: 1;
+    align-items: center;
+
+    span {
+      font-size: 29px;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 20px;
+        background-color: red;
+      }
+    }
+  }
+}
