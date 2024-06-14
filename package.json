@@ -1,10 +1,10 @@
 {
-  "name": "testes-webpack",
+  "name": "hondahpf_relayout",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": ">=v20.14.0"
+    "node": ">=v21.7.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,20 +15,32 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "enquire.js": "^2.1.6",
+    "jails-js": "~2.1.8",
+    "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
+    "scriptjs": "^2.5.9",
+    "swiper": "^11.1.4"
+  },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "babel-loader": "^8.0.0",
+    "babel-plugin-lodash": "npm:@timbryandev/babel-plugin-lodash@^1.0.2",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.11.0",
+    "expose-loader": "^5.0.0",
     "file-loader": "^6.2.0",
     "glob": "^10.4.1",
+    "lodash-webpack-plugin": "^0.11.6",
     "mini-css-extract-plugin": "^2.0.0",
     "postcss": "^8.4.38",
     "postcss-custom-properties": "^13.3.10",
     "postcss-import": "^16.1.0",
     "postcss-loader": "^8.1.1",
     "postcss-preset-env": "^9.5.14",
+    "style-loader": "^4.0.0",
     "stylus": "^0.54.0",
     "stylus-loader": "^6.0.0",
     "terser-webpack-plugin": "^5.3.10",

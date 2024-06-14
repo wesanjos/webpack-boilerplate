@@ -8,8 +8,9 @@ const postcssCustomProperties = require("postcss-custom-properties");
 const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const WebpackBar = require("webpackbar");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
-const jsEntries = globSync("./src/scripts/pages/*.js").reduce(
+const jsEntries = globSync("./src/scripts/{pages,deprecated}/*.js").reduce(
   (entries, file) => {
     const name = path.basename(file, ".js");
     entries[`js/${name}`] = file;
@@ -38,12 +39,26 @@ module.exports = {
     clean: true,
   },
   devtool: "source-map",
+  externals: {
+    jquery: "jQuery",
+  },
   module: {
+    noParse: /jquery/,
     rules: [
       {
-        test: /\.js$/,
-        exclude: path.resolve(__dirname, "node_modules"),
-        use: "babel-loader",
+        test: /\js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+            plugins: ["lodash"],
+          },
+        },
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.styl$/,
@@ -79,16 +94,52 @@ module.exports = {
           },
         },
       },
+      {
+        test: require.resolve("jails-js/source/jails"),
+        use: [
+          {
+            loader: "expose-loader",
+            options: {
+              exposes: "jails",
+              override: true,
+            },
+          },
+        ],
+      },
+      {
+        test: require.resolve("jquery"),
+        loader: "expose-loader",
+        options: {
+          exposes: ["$", "jQuery"],
+          globalName: "$",
+          override: true,
+        },
+      },
+      {
+        test: require.resolve("enquire.js"),
+        use: [
+          {
+            loader: "expose-loader",
+            options: {
+              exposes: "enquire",
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
     new WebpackBar(),
+    new LodashModuleReplacementPlugin(),
     new CopyPlugin({
       patterns: [
         {
           from: "src/images",
           to: "images",
           noErrorOnMissing: true,
+          globOptions: {
+            gitignore: true,
+          },
         },
       ],
     }),
@@ -105,6 +156,9 @@ module.exports = {
   resolve: {
     modules: ["node_modules"],
     extensions: [".js", ".styl"],
+    alias: {
+      jails: path.resolve(__dirname, "node_modules/jails-js/source/jails.js"),
+    },
     preferRelative: true,
   },
   cache: true,
