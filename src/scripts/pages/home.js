@@ -1,13 +1,7 @@
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
-console.log('Arquivo JS Home');
+/* eslint-disable no-console */
+import image from '../../images/fff.png';
 
-import image from "../../images/fff.png";
+console.log('Arquivo JS Home');
 
 const imgElement = document.createElement('img');
 imgElement.src = image;
